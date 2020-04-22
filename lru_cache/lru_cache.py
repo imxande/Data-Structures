@@ -50,12 +50,14 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
+        # check if key exist 
         if key in self.storage:
             node = self.storage[key]
             node.value = (key, value)
             self.order.move_to_end(node)
             return
         else:
+            # If the cache is already at max capacity
             if self.size == self.limit:
                 del self.storage[self.order.head.value[0]]
                 self.order.remove_from_head()
